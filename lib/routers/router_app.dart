@@ -1,7 +1,7 @@
 import 'package:book_tour_app/screens/auth/login/auth_login.dart';
 import 'package:book_tour_app/screens/auth/signup/auth_signup.dart';
 import 'package:book_tour_app/screens/dashboard/dashboard_page.dart';
-import 'package:book_tour_app/screens/accessPage/accessPage.dart';
+import 'package:book_tour_app/screens/auth/accessPage/accessPage.dart';
 
 import 'package:flutter/material.dart';
 
