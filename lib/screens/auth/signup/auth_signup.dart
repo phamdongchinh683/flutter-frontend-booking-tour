@@ -58,203 +58,291 @@ class _AuthSignupState extends State<AuthSignup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: const Text('Sign Up', style: TextStyle(color: Colors.white)),
+        
+        title: const Text('Sign Up', style: TextStyle(color: Colors.orange,
+        fontSize: 16)),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Create an Account',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              DropdownButtonFormField<String>(
-                value: _role,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _role = newValue!;
-                  });
-                },
-                items: <String>['Traveler', 'Guide']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                decoration: InputDecoration(
-                  labelText: 'Role',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _firstNameController,
-                decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _lastNameController,
-                decoration: InputDecoration(
-                  labelText: 'Last Name',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _phoneController,
-                decoration: InputDecoration(
-                  labelText: 'Phone Number',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _ageController,
-                decoration: InputDecoration(
-                  labelText: 'Age',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _cityController,
-                decoration: InputDecoration(
-                  labelText: 'City',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: const TextStyle(color: Colors.deepPurple),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 20),
-              _isLoading
-                  ? const CircularProgressIndicator()
-                  : ElevatedButton(
-                      onPressed: _signup,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 50.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
+      body: Container(
+
+         width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/avatar.png'),  
+            fit: BoxFit.cover,  
+          ),
+        ),
+       
+        child: SingleChildScrollView( 
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center, 
+                    crossAxisAlignment: CrossAxisAlignment.center, 
+                    children: [
+                      Text(
+                        'EXPLORA',
+                        style: TextStyle(
+                          fontSize: 36.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange,
                         ),
                       ),
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      const SizedBox(height: 8.0),
+                      const Text(
+                        '- IF NOT NOW, WHEN? -',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.orange,
+                        ),
                       ),
+                    ],
+                  ),
+                ),SizedBox(height: 30,),
+                DropdownButtonFormField<String>(
+                  value: _role,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _role = newValue!;
+                    });
+                  },
+                  items: <String>['Traveler', 'Guide']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: 'Role',
+                    labelStyle: const TextStyle(color:Color.fromARGB(255, 52, 235, 91)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0), // Bo tròn góc viền
                     ),
-              if (_errorMessage.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    _errorMessage,
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                 ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Already have an account?'),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(color: Colors.deepPurple),
+                const SizedBox(height: 20),
+                // First Name
+                TextField(
+                  controller: _firstNameController,
+                  decoration: InputDecoration(
+                    hintText: 'First Name', hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 52, 235, 91)
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Last Name
+                TextField(
+                  controller: _lastNameController,
+                  decoration: InputDecoration(
+                    hintText: 'Last Name',hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 52, 235, 91)
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Username
+                TextField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    hintText: 'Username',hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 52, 235, 91)
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Email
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: 'Email',hintStyle: TextStyle(
+                      color:Color.fromARGB(255, 52, 235, 91)
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 20),
+               
+                // Phone number
+                TextField(
+                  controller: _phoneController,
+                  decoration: InputDecoration(
+                    hintText: 'Phone number',hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 52, 235, 91)
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Age
+                TextField(
+                  controller: _ageController,
+                  decoration: InputDecoration(
+                    hintText: 'Age',hintStyle: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // City name
+                TextField(
+                  controller: _cityController,
+                  decoration: InputDecoration(
+                    hintText: 'City Name',hintStyle: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                ),
+                const SizedBox(height: 20),
+                 // Password
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    hintText: 'Password',hintStyle: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: const BorderSide(color: Colors.orange),
+                    ),fillColor: Colors.white,  
+                    filled: true, 
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                _isLoading
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: _signup,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                if (_errorMessage.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      _errorMessage,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ],
-              ),
-            ],
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account?', style: TextStyle(
+                      color: Colors.orange,
+                    ),),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(color: Color.fromARGB(255, 52, 235, 91)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

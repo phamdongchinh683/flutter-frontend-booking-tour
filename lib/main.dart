@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: RouterApp.loginRoute,
+      initialRoute: RouterApp.accessPageRoute,
       routes: RouterApp.routes,
     );
   }
