@@ -7,7 +7,7 @@ class AuthService {
   static const String _baseUrl =
       'https://backend-tour-booking-node-js-mongodb.onrender.com/api/v1/auth';
 
-  static Future<bool> signup(User user) async {
+  static Future<Map<String, dynamic>> signup(User user) async {
     try {
       final response = await http.post(
         Uri.parse('$_baseUrl/sign-up'),
@@ -15,13 +15,13 @@ class AuthService {
         body: json.encode(user.toJson()),
       );
 
-      if (response.statusCode == 201) {
-        return true;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return json.decode(response.body);
       } else {
-        throw Exception('Signup failed: ${response.body}');
+        return {'message': response.body};
       }
     } catch (e) {
-      throw Exception('Error during signup: $e');
+      return {'message': e};
     }
   }
 
