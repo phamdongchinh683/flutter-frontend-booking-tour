@@ -22,11 +22,14 @@ class _AccessPageState extends State<AccessPage> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: SvgPicture.asset(
-              "assets/images/auth.svg",
-              fit: BoxFit.cover,
+              child: Image(
+                image: AssetImage("assets/images/avatar.png"),
+                fit: BoxFit.cover,
+                
+              ),
             ),
-          ),
+          
+
           Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),

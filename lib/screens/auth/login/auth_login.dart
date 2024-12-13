@@ -50,89 +50,92 @@ class _AuthLoginState extends State<AuthLogin> {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Login Page',
-          style: TextStyle(
-            color: Colors.orange,
-            fontSize: 16,
+      body: Stack(
+        children: [
+          // Hình nền
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/avatar.png', 
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [BrandingText()],
-                  ),
-                ),
-                const SizedBox(height: 60),
-                FieldInput(
-                  controller: _usernameController,
-                  hintText: 'Username',
-                ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-                const SizedBox(height: 50),
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : SizedBox(
-                        child: ElevatedButtonAuth(
-                          onPressed: _login,
-                          buttonText: 'LOG IN',
-                        ),
-                      ),
-                if (errorMessage.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      errorMessage,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ),
-                const SizedBox(height: 20),
-                Row(
+         
+          Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.orange,
+                    const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [BrandingText()],
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
-                      },
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 52, 235, 91)),
+                    const SizedBox(height: 60),
+                    FieldInput(
+                      controller: _usernameController,
+                      hintText: 'Username',
+                    ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      controller: _passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 50),
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : SizedBox(
+                            child: ElevatedButtonAuth(
+                              onPressed: _login,
+                              buttonText: 'LOG IN',
+                            ),
+                          ),
+                    if (errorMessage.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          errorMessage,
+                          style: const TextStyle(color: Colors.red),
+                        ),
                       ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.orange,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/signup');
+                          },
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Color.fromARGB(255, 52, 235, 91)),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
