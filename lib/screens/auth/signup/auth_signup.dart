@@ -79,8 +79,7 @@ class _AuthSignupState extends State<AuthSignup> {
           _ageError = '';
           _cityError = '';
 
-          List<String> errors = signup['message'].split(',');
-          print(errors);
+          List<String> errors = signup['message'].split(', ');
           for (var error in errors) {
             if (error.contains('Username')) {
               _usernameError = error.trim();
@@ -126,154 +125,179 @@ class _AuthSignupState extends State<AuthSignup> {
         elevation: 0,
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                BrandingText(),
-                const SizedBox(height: 60),
-                FieldInput(
-                  hintText: 'Select Role',
-                  dropdownItems: ['Traveler', 'Guide'],
-                  selectedValue: _role,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _role = newValue!;
-                    });
-                  },
-                ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _firstNameController,
-                  hintText: 'First Name',
-                ),
-                if (_firstNameError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _firstNameError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const BrandingText(),
+          const SizedBox(height: 60),
+          SizedBox(
+            height: 286,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FieldInput(
+                      nameField: "Role",
+                      hintText: 'Select Role',
+                      dropdownItems: const ['Traveler', 'Guide'],
+                      selectedValue: _role,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _role = newValue!;
+                        });
+                      },
                     ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _lastNameController,
-                  hintText: 'Last Name',
-                ),
-                if (_lastNameError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _lastNameError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "First Name",
+                      controller: _firstNameController,
+                      hintText: 'Your first name',
                     ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _usernameController,
-                  hintText: 'Username',
-                ),
-                if (_usernameError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _usernameError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _emailController,
-                  hintText: 'Email',
-                ),
-                if (_emailError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _emailError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _phoneController,
-                  hintText: 'Phone Number',
-                ),
-                if (_phoneError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _phoneError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _ageController,
-                  hintText: 'Age',
-                ),
-                if (_ageError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _ageError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _cityController,
-                  hintText: 'City Name',
-                ),
-                if (_cityError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _cityError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                FieldInput(
-                  controller: _passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-                if (_passwordError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _passwordError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButtonAuth(
-                        onPressed: _signup,
-                        buttonText: 'SIGN UP',
+                    if (_firstNameError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _firstNameError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
                       ),
-                if (_errorMessage.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      _errorMessage,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "Last Name",
+                      controller: _lastNameController,
+                      hintText: 'Your last name',
                     ),
-                  ),
-              ],
+                    if (_lastNameError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _lastNameError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "Username",
+                      controller: _usernameController,
+                      hintText: 'Your username',
+                    ),
+                    if (_usernameError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _usernameError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "Email",
+                      controller: _emailController,
+                      hintText: 'Your mail',
+                    ),
+                    if (_emailError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _emailError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "Phone Number",
+                      controller: _phoneController,
+                      hintText: 'Your phone number',
+                    ),
+                    if (_phoneError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _phoneError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "Age",
+                      controller: _ageController,
+                      hintText: 'Your age',
+                    ),
+                    if (_ageError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _ageError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "City",
+                      controller: _cityController,
+                      hintText: 'Your city',
+                    ),
+                    if (_cityError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _cityError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    const SizedBox(height: 16),
+                    FieldInput(
+                      nameField: "Password",
+                      controller: _passwordController,
+                      hintText: 'Your password',
+                      obscureText: true,
+                    ),
+                    if (_passwordError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _passwordError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+          const SizedBox(height: 25),
+          _isLoading
+              ? const CircularProgressIndicator()
+              : ElevatedButtonAuth(
+                  onPressed: _signup,
+                  buttonText: 'SIGN UP',
+                ),
+          if (_errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0),
+              child: Text(
+                _errorMessage,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+        ],
+      )),
     );
   }
 }
