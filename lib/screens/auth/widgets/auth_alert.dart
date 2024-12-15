@@ -21,15 +21,15 @@ class AuthAlert {
       desc: description,
       buttons: [
         DialogButton(
-          child: const Text(
-            "OK",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
           onPressed: () => Navigator.pop(context),
           color: type == AlertType.success
               ? const Color.fromRGBO(0, 179, 134, 1.0)
               : Colors.red,
           radius: BorderRadius.circular(0.0),
+          child: const Text(
+            "OK",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
         ),
       ],
     ).show();

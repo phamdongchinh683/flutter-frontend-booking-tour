@@ -1,7 +1,7 @@
 import 'package:book_tour_app/screens/auth/widgets/branding_text.dart';
 import 'package:book_tour_app/screens/auth/widgets/elevated_button_auth.dart';
+import 'package:cloudinary_flutter/image/cld_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -11,39 +11,40 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final assetName = 'assets/images/onboarding_screen.svg';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Book Tour App'),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: Stack(
         children: [
           Positioned.fill(
-            child: SvgPicture.asset(
-              "assets/images/auth.svg",
-              fit: BoxFit.cover,
+            child: CldImageWidget(
+              publicId: 'tourImages/x3jhih9qlwehc6iytnqc',
             ),
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 0.0,
+                vertical: 0.0,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [BrandingText()],
-                  ),
-                  const SizedBox(height: 50),
+                  SizedBox(height: 0),
+                  const BrandingText(),
                   Container(
-                    padding: const EdgeInsets.all(30.0),
-                    decoration: const BoxDecoration(),
+                    padding: const EdgeInsets.only(top: 0.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ElevatedButtonAuth(
                           onPressed: () {
@@ -61,7 +62,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 0),
+                  SizedBox(height: 0),
+                  SizedBox(height: 0),
+                  SizedBox(height: 0),
+                  SizedBox(height: 0),
                 ],
               ),
             ),

@@ -82,7 +82,7 @@ class _AuthLoginState extends State<AuthLogin> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Center(
@@ -104,28 +104,32 @@ class _AuthLoginState extends State<AuthLogin> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 18),
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : SizedBox(
-                        child: ElevatedButtonAuth(
-                          onPressed: _login,
-                          buttonText: 'LOG IN',
-                        ),
-                      ),
-                if (errorMessage.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      errorMessage,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ),
-                const SizedBox(height: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Divider(color: Color(0xFFFF9900)),
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : SizedBox(
+                            child: ElevatedButtonAuth(
+                              onPressed: _login,
+                              buttonText: 'LOG IN',
+                            ),
+                          ),
+                    if (errorMessage.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          errorMessage,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    const SizedBox(height: 13),
+                    const Divider(
+                      color: Color(0xFFFF9900),
+                      indent: 50.0,
+                      endIndent: 50.0,
+                    ),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/forgot-password');

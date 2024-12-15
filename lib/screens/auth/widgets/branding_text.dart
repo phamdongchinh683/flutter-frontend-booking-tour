@@ -18,12 +18,12 @@ class BrandingText extends StatelessWidget {
             color: Color(0xFFFF9900),
           ),
         ),
-        SizedBox(height: 10.0),
         Text(
           '- IF NOT NOW, WHEN? -',
           style: TextStyle(
             fontSize: 15.0,
             fontFamily: 'Ubuntu',
+            fontWeight: FontWeight.normal,
             color: Color(0xFFFF9900),
             letterSpacing: 1.5,
           ),

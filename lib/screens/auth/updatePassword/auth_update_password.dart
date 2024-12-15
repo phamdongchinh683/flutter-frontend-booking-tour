@@ -42,7 +42,7 @@ class _AuthUpdatePasswordState extends State<AuthUpdatePassword> {
       final newPassword = await _authService.newPassword(password, otp);
       if (newPassword['status'] == 'success') {
         const AuthAlert(
-          title: "Update",
+          title: "Notification",
           description: "Updated your password",
           type: AlertType.success,
         ).show(context);
@@ -50,7 +50,7 @@ class _AuthUpdatePasswordState extends State<AuthUpdatePassword> {
             () => Navigator.pushReplacementNamed(context, '/login'));
       } else {
         AuthAlert(
-          title: "Failed",
+          title: "Notification",
           description: newPassword['message'],
           type: AlertType.error,
         ).show(context);
@@ -84,7 +84,7 @@ class _AuthUpdatePasswordState extends State<AuthUpdatePassword> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Center(

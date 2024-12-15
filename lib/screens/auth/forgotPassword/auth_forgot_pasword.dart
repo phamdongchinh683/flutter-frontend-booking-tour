@@ -41,22 +41,20 @@ class _AuthForgotPasswordState extends State<AuthForgotPassword> {
       if (receiveOtp['status'] == 'success') {
         final success = receiveOtp['data'];
         AuthAlert(
-          title: "Please check your email to receive the otp code",
+          title: "Notification",
           description: success,
           type: AlertType.success,
         ).show(context);
-        isLoading = false;
         final _timer = Timer(const Duration(seconds: 2),
             () => Navigator.pushNamed(context, '/update-new-password'));
       } else {
         AuthAlert(
-          title: "Failed",
+          title: "Notification",
           description: receiveOtp['message'],
           type: AlertType.error,
         ).show(context);
       }
     } catch (e) {
-      isLoading = false;
       final errorDetail = e.toString();
       final List<String> error = errorDetail.split(": ");
       AuthAlert(
@@ -89,7 +87,7 @@ class _AuthForgotPasswordState extends State<AuthForgotPassword> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Center(
