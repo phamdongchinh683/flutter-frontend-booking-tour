@@ -22,7 +22,7 @@ class FieldInput extends StatelessWidget {
   Widget build(BuildContext context) {
     if (dropdownItems != null) {
       return SizedBox(
-        width: 286,
+       width: double.infinity,
         child: DropdownButtonFormField<String>(
           value: selectedValue,
           onChanged: onChanged,
@@ -34,7 +34,7 @@ class FieldInput extends StatelessWidget {
           }).toList(),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Color(0xFFB6B6B6)),
+            hintStyle: const TextStyle(color: Color.fromARGB(255, 56, 241, 49)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             border: OutlineInputBorder(
@@ -56,13 +56,13 @@ class FieldInput extends StatelessWidget {
       );
     } else {
       return SizedBox(
-        width: 286,
+        width: double.infinity,
         child: TextField(
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Color(0xFFB6B6B6)),
+            hintStyle: const TextStyle(color: Color.fromARGB(255, 56, 241, 49)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             border: OutlineInputBorder(

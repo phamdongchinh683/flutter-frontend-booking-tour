@@ -117,295 +117,101 @@ class _AuthSignupState extends State<AuthSignup> {
     }
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign Up',
-            style: TextStyle(color: Colors.orange, fontSize: 16)),
-        elevation: 0,
+        appBar: AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.orange), 
+        onPressed: () {
+          Navigator.pop(context); 
+        },
       ),
+      title: const Text(
+        'Sign Up',
+        style: TextStyle(color: Colors.orange, fontSize: 16),
+      ),
+     
+    ),
+
       body: Stack(
         children: [
-          Positioned.fill(child: 
-          Image.asset("assets/images/avatar.png",
-          fit: BoxFit.cover,),
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/avatar.png",
+              fit: BoxFit.cover, ),
           ),
           Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,child: 
-                FieldInput(
-                  hintText: 'Select Role',
-                  dropdownItems: ['Traveler', 'Guide'],
-                  selectedValue: _role,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _role = newValue!;
-                    });
-                  },
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center, 
+                  children: [
+                    FieldInput(
+                      hintText: 'Select Role',
+                      dropdownItems: ['Traveler', 'Guide'],
+                      selectedValue: _role,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _role = newValue!;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    // Các trường nhập du lieu
+                    FieldInput(controller: _firstNameController, hintText: 'First name'),
+                    if (_firstNameError != null) _buildErrorText(_firstNameError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _lastNameController, hintText: 'Last name'),
+                    if (_lastNameError != null) _buildErrorText(_lastNameError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _usernameController, hintText: 'User name'),
+                    if (_usernameError != null) _buildErrorText(_usernameError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _emailController, hintText: 'Email'),
+                    if (_emailError != null) _buildErrorText(_emailError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _phoneController, hintText: 'Phone number'),
+                    if (_phoneError != null) _buildErrorText(_phoneError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _ageController, hintText: 'Age'),
+                    if (_ageError != null) _buildErrorText(_ageError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _cityController, hintText: "City name"),
+                    if (_cityError != null) _buildErrorText(_cityError!),
+                    const SizedBox(height: 16),
+                    FieldInput(controller: _passwordController, obscureText: true, hintText: 'Password'),
+                    if (_passwordError != null) _buildErrorText(_passwordError!),
+                    const SizedBox(height: 16),
+                    
+                    _isLoading
+                        ? const CircularProgressIndicator()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 40.0), 
+                            child: ElevatedButtonAuth(
+                              onPressed: _signup,
+                              buttonText: 'SIGN UP',
+                            ),
+                          ),
+                    if (_errorMessage.isNotEmpty) _buildErrorText(_errorMessage),
+                  ],
                 ),
-                ),
-                const SizedBox(height: 16),
-                // First name
-                TextField(
-                  controller: _firstNameController,
-                  decoration: InputDecoration(
-                    hintText: 'First Name', hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                ),
-                if (_firstNameError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _firstNameError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                // Last name
-                 TextField(
-                  controller: _lastNameController,
-                  decoration: InputDecoration(
-                    hintText: 'Last name',hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                ),
-                if (_lastNameError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _lastNameError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                // User name
-                TextField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    hintText: 'Username',hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                ),
-                if (_usernameError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _usernameError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                // Email
-                 TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: 'Email',hintStyle: TextStyle(
-                      color:Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                if (_emailError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _emailError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                // Phone number
-               TextField(
-                  controller: _phoneController,
-                  decoration: InputDecoration(
-                    hintText: 'Phone number',hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                ),
-                if (_phoneError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _phoneError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                // Age
-               TextField(
-                  controller: _ageController,
-                  decoration: InputDecoration(
-                    hintText: 'Age',hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                ),
-                if (_ageError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _ageError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                //City name
-                TextField(
-                  controller: _cityController,
-                  decoration: InputDecoration(
-                    hintText: 'City Name',hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91)
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                ),
-                if (_cityError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _cityError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                // Password
-               TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    hintText: 'Password',hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 52, 235, 91),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.orange),
-                    ),fillColor: Colors.white,  
-                    filled: true, 
-                  ),
-                  obscureText: true,
-                ),
-                if (_passwordError != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      _passwordError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                const SizedBox(height: 16),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButtonAuth(
-                        onPressed: _signup,
-                        buttonText: 'SIGN UP',
-                      ),
-                if (_errorMessage.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      _errorMessage,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-              ],
+              ),
             ),
           ),
-        ),
-        ),
         ],
-      
+      ),
+    );
+  }
+
+  // Hiển thị thông báo lỗi
+  Padding _buildErrorText(String errorText) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Text(
+        errorText,
+        style: const TextStyle(color: Colors.red, fontSize: 16,fontWeight: FontWeight.bold,),
       ),
     );
   }

@@ -20,7 +20,7 @@ class ElevatedButtonAuth extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 90.0),
+          padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 60.0),
         ),
         child: Text(
           buttonText,
@@ -28,7 +28,7 @@ class ElevatedButtonAuth extends StatelessWidget {
             fontFamily: 'Ubuntu',
             color: Colors.white,
             fontWeight: FontWeight.normal,
-            fontSize: 15.0,
+            fontSize: 16.0,
           ),
         ),
       ),

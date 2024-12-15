@@ -4,7 +4,6 @@ import 'package:book_tour_app/screens/auth/widgets/field_input.dart';
 import 'package:book_tour_app/services/auth_service.dart';
 import 'package:book_tour_app/storage/secure_storage.dart';
 import 'package:flutter/material.dart';
-
 class AuthLogin extends StatefulWidget {
   const AuthLogin({super.key});
 
@@ -16,7 +15,7 @@ class _AuthLoginState extends State<AuthLogin> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isLoading = false;
-  String errorMessage = '';
+  String errorMessage = ''; // Lưu thông báo lỗi
   final AuthService _authService = AuthService();
 
   Future<void> _login() async {
@@ -25,14 +24,14 @@ class _AuthLoginState extends State<AuthLogin> {
 
     if (username.isEmpty || password.isEmpty) {
       setState(() {
-        errorMessage = 'Please fill in all fields.';
+        errorMessage = 'Please fill in all fields.';  
       });
       return;
     }
 
     setState(() {
       isLoading = true;
-      errorMessage = '';
+      errorMessage = '';  
     });
 
     try {
@@ -41,7 +40,7 @@ class _AuthLoginState extends State<AuthLogin> {
       Navigator.pushReplacementNamed(context, '/dashboard');
     } catch (e) {
       setState(() {
-        errorMessage = e.toString();
+        errorMessage = e.toString();  
       });
     } finally {
       setState(() {
@@ -53,6 +52,13 @@ class _AuthLoginState extends State<AuthLogin> {
  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      
+      title: const Text(
+        'Sign In',
+        style: TextStyle(color: Colors.orange, fontSize: 18),
+      ),
+    ),
       body: Stack(
         children: [
           // Hình nền
@@ -68,13 +74,10 @@ class _AuthLoginState extends State<AuthLogin> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [BrandingText()],
                       ),
                     ),
@@ -89,7 +92,7 @@ class _AuthLoginState extends State<AuthLogin> {
                       hintText: 'Password',
                       obscureText: true,
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 40),
                     isLoading
                         ? const Center(child: CircularProgressIndicator())
                         : SizedBox(
@@ -140,3 +143,6 @@ class _AuthLoginState extends State<AuthLogin> {
     );
   }
 }
+
+ 
+

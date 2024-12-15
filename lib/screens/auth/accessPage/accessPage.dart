@@ -1,7 +1,7 @@
 import 'package:book_tour_app/screens/auth/widgets/branding_text.dart';
 import 'package:book_tour_app/screens/auth/widgets/elevated_button_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 
 class AccessPage extends StatefulWidget {
   const AccessPage({super.key});
@@ -14,11 +14,9 @@ class _AccessPageState extends State<AccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: AppBar(   
       ),
+      
       body: Stack(
         children: [
           Positioned.fill(
@@ -28,8 +26,6 @@ class _AccessPageState extends State<AccessPage> {
                 
               ),
             ),
-          
-
           Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
