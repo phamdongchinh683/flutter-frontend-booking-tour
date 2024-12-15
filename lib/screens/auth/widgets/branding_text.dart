@@ -10,21 +10,22 @@ class BrandingText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'EXPLORA',
+          'EXPLORE',
           style: TextStyle(
             fontSize: 45.0,
             fontFamily: 'Ubuntu',
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.bold,
             color: Color(0xFFFF9900),
           ),
         ),
-        SizedBox(height: 10.0),
         Text(
           '- IF NOT NOW, WHEN? -',
           style: TextStyle(
-            fontSize: 14.0,
+            fontSize: 15.0,
             fontFamily: 'Ubuntu',
+            fontWeight: FontWeight.normal,
             color: Color(0xFFFF9900),
+            letterSpacing: 1.5,
           ),
         ),
       ],

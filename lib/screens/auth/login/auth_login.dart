@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:book_tour_app/screens/auth/widgets/auth_alert.dart';
 import 'package:book_tour_app/screens/auth/widgets/branding_text.dart';
 import 'package:book_tour_app/screens/auth/widgets/elevated_button_auth.dart';
 import 'package:book_tour_app/screens/auth/widgets/field_input.dart';
 import 'package:book_tour_app/services/auth_service.dart';
 import 'package:book_tour_app/storage/secure_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 class AuthLogin extends StatefulWidget {
   const AuthLogin({super.key});
 
@@ -37,11 +42,21 @@ class _AuthLoginState extends State<AuthLogin> {
     try {
       final token = await _authService.login(username, password);
       await SecureStorage().saveToken(token);
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      const AuthAlert(
+        title: "Login Success",
+        description: "You have logged in successfully!",
+        type: AlertType.success,
+      ).show(context);
+      final _timer = Timer(const Duration(seconds: 1),
+          () => Navigator.pushReplacementNamed(context, '/dashboard'));
     } catch (e) {
-      setState(() {
-        errorMessage = e.toString();  
-      });
+      final errorDetail = e.toString();
+      final List<String> error = errorDetail.split(": ");
+      AuthAlert(
+        title: "Failed",
+        description: error[1],
+        type: AlertType.error,
+      ).show(context);
     } finally {
       setState(() {
         isLoading = false;
@@ -53,92 +68,94 @@ class _AuthLoginState extends State<AuthLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      
-      title: const Text(
-        'Sign In',
-        style: TextStyle(color: Colors.orange, fontSize: 18),
-      ),
-    ),
-      body: Stack(
-        children: [
-          // Hình nền
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/avatar.png', 
-              fit: BoxFit.cover,
-            ),
+        title: const Text(
+          'Login',
+          style: TextStyle(
+            color: Colors.orange,
+            fontSize: 16,
           ),
-         
-          Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+        ),
+      ),
+      body: Center(
+        child: SizedBox(
+          width: 286,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [BrandingText()],
+                  ),
+                ),
+                const SizedBox(height: 60),
+                FieldInput(
+                  controller: _usernameController,
+                  hintText: 'Username',
+                ),
+                const SizedBox(height: 16),
+                FieldInput(
+                  controller: _passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
+                const SizedBox(height: 18),
+                isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : SizedBox(
+                        child: ElevatedButtonAuth(
+                          onPressed: _login,
+                          buttonText: 'LOG IN',
+                        ),
+                      ),
+                if (errorMessage.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                const SizedBox(height: 20),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Center(
-                      child: Column(
-                        children: [BrandingText()],
-                      ),
-                    ),
-                    const SizedBox(height: 60),
-                    FieldInput(
-                      controller: _usernameController,
-                      hintText: 'Username',
-                    ),
-                    const SizedBox(height: 16),
-                    FieldInput(
-                      controller: _passwordController,
-                      hintText: 'Password',
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 40),
-                    isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : SizedBox(
-                            child: ElevatedButtonAuth(
-                              onPressed: _login,
-                              buttonText: 'LOG IN',
-                            ),
-                          ),
-                    if (errorMessage.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          errorMessage,
-                          style: const TextStyle(color: Colors.red),
+                    const Divider(color: Color(0xFFFF9900)),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/forgot-password');
+                      },
+                      child: const Text(
+                        'Forgot your password?',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFFB6B6B6),
                         ),
                       ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Don't have an account?",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.orange,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signup');
-                          },
-                          child: const Text(
-                            'Sign Up',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 52, 235, 91)),
-                          ),
-                        ),
-                      ],
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signup');
+                      },
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xFFFF9900),
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

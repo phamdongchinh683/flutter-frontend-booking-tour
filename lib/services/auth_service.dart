@@ -4,8 +4,7 @@ import 'package:book_tour_app/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static const String _baseUrl =
-      'https://backend-tour-booking-node-js-mongodb.onrender.com/api/v1/auth';
+  static const String _baseUrl = 'http://localhost:8080/api/v1/auth';
 
   static Future<Map<String, dynamic>> signup(User user) async {
     try {
@@ -18,10 +17,11 @@ class AuthService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return json.decode(response.body);
       } else {
-        return {'message': response.body};
+        final errorBody = json.decode(response.body);
+        return {'message': errorBody['message']};
       }
     } catch (e) {
-      return {'message': e};
+      return {'message': 'An error occurred: ${e.toString()}'};
     }
   }
 
@@ -40,6 +40,48 @@ class AuthService {
     } else {
       final error = jsonDecode(response.body)['message'];
       throw Exception(error ?? 'Login failed');
+    }
+  }
+
+  Future<Map<String, dynamic>> sendOtp(String email) async {
+    final Uri otpUrl = Uri.parse('$_baseUrl/send-otp');
+
+    final response = await http.post(
+      otpUrl,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': email}),
+    );
+
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return json.decode(response.body);
+      } else {
+        final errorBody = json.decode(response.body);
+        return {'message': errorBody['message']};
+      }
+    } catch (e) {
+      return {'message': 'An error occurred: ${e.toString()}'};
+    }
+  }
+
+  Future<Map<String, dynamic>> newPassword(String password, String otp) async {
+    final Uri loginUrl = Uri.parse('$_baseUrl/new-password');
+
+    final response = await http.post(
+      loginUrl,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'password': password, 'otp': otp}),
+    );
+
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return json.decode(response.body);
+      } else {
+        final errorBody = json.decode(response.body);
+        return {'message': errorBody['message']};
+      }
+    } catch (e) {
+      return {'message': 'An error occurred: ${e.toString()}'};
     }
   }
 }

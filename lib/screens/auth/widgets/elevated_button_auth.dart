@@ -5,14 +5,16 @@ class ElevatedButtonAuth extends StatelessWidget {
   final String buttonText;
 
   const ElevatedButtonAuth({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.buttonText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      // width: 193,
+      height: 43,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

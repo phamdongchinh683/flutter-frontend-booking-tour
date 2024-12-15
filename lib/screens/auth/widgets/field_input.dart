@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class FieldInput extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
+  final String? nameField;
   final bool obscureText;
+
   final List<String>? dropdownItems;
   final String? selectedValue;
   final void Function(String?)? onChanged;
@@ -16,6 +18,7 @@ class FieldInput extends StatelessWidget {
     this.dropdownItems,
     this.selectedValue,
     this.onChanged,
+    this.nameField,
   });
 
   @override
@@ -61,6 +64,7 @@ class FieldInput extends StatelessWidget {
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
+            labelText: nameField,
             hintText: hintText,
             hintStyle: const TextStyle(color: Color.fromARGB(255, 56, 241, 49)),
             contentPadding:
