@@ -4,7 +4,7 @@ import 'package:book_tour_app/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static const String _baseUrl = 'https://backend-tour-booking-node-js-mongodb.onrender.com/api/v1/auth';
+  static const String _baseUrl = 'http://localhost:8080/api/v1/auth';
 
   static Future<Map<String, dynamic>> signup(User user) async {
     try {
