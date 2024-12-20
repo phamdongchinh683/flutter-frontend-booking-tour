@@ -1,6 +1,7 @@
 import 'package:book_tour_app/screens/auth/forgotPassword/auth_forgot_pasword.dart';
 import 'package:book_tour_app/screens/auth/login/auth_login.dart';
 import 'package:book_tour_app/screens/auth/mybooked/my_booked.dart';
+import 'package:book_tour_app/screens/auth/profile/auth_profile.dart';
 import 'package:book_tour_app/screens/auth/signup/auth_signup.dart';
 import 'package:book_tour_app/screens/auth/updatePassword/auth_update_password.dart';
 import 'package:book_tour_app/screens/dashboard/dashboard_page.dart';
@@ -19,6 +20,8 @@ class RouterApp {
   static const String tourDetailRoute = "/detail_tour";
   static const String bookTourRoute = "/book_tour";
   static const String myBookedRoute = "/my_booked";
+  static const String myProfileRoute = "/profile";
+
   static Map<String, WidgetBuilder> routes = {
     onBoardingScreenRoute: (context) => const OnboardingScreen(),
     loginRoute: (context) => const AuthLogin(),
@@ -26,6 +29,7 @@ class RouterApp {
     forgotPasswordRoute: (context) => const AuthForgotPassword(),
     updateNewpasswordRoute: (context) => const AuthUpdatePassword(),
     dashboardRoute: (context) => const DashboardPage(),
+    myProfileRoute: (context) => const AuthProfileScreen(),
     myBookedRoute: (context) => MyBooked(),
     tourDetailRoute: (context) {
       final String tourId =

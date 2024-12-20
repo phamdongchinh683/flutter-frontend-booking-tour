@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:book_tour_app/screens/auth/widgets/auth_alert.dart';
+import 'package:book_tour_app/screens/widgets/input_tour_field.dart';
 import 'package:book_tour_app/services/tour_service.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -26,7 +27,7 @@ class _BookTourPageState extends State<BookTourScreen> {
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _totalAmountController = TextEditingController();
 
-  int _status = 0;
+  final int _status = 0;
 
   void _bookTour() async {
     if (_formKey.currentState?.validate() ?? false) {
@@ -46,9 +47,8 @@ class _BookTourPageState extends State<BookTourScreen> {
             description: "Tour booked successfully!!",
             type: AlertType.success,
           ).show(context);
-          final _timer = Timer(const Duration(seconds: 1),
+          Timer(const Duration(seconds: 1),
               () => Navigator.pushReplacementNamed(context, '/dashboard'));
-          ;
         }
       } catch (e) {
         const AuthAlert(
@@ -63,16 +63,26 @@ class _BookTourPageState extends State<BookTourScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Book Tour')),
+      appBar: AppBar(
+        title: const Text(
+          'Book Tour',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFFF9900),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
+              InputTourField(
                 controller: _guideIdController,
-                decoration: InputDecoration(labelText: 'Guide ID'),
+                labelText: 'Guide ID',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the guide ID';
@@ -80,11 +90,11 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
+              const SizedBox(height: 16),
+              InputTourField(
                 controller: _numberOfVisitorsController,
+                labelText: 'Number of Visitors',
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Number of Visitors'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the number of visitors';
@@ -95,11 +105,10 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
+              const SizedBox(height: 16),
+              InputTourField(
                 controller: _startTourDateController,
-                decoration:
-                    InputDecoration(labelText: 'Start Tour Date (YYYY-MM-DD)'),
+                labelText: 'Start Tour Date (YYYY-MM-DD)',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the start date';
@@ -107,11 +116,10 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
+              const SizedBox(height: 16),
+              InputTourField(
                 controller: _startTimeController,
-                decoration:
-                    InputDecoration(labelText: 'Start Time (HH:MM AM/PM)'),
+                labelText: 'Start Time (HH:MM AM/PM)',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the start time';
@@ -119,11 +127,10 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
+              const SizedBox(height: 16),
+              InputTourField(
                 controller: _endTimeController,
-                decoration:
-                    InputDecoration(labelText: 'End Time (HH:MM AM/PM)'),
+                labelText: 'End Time (HH:MM AM/PM)',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the end time';
@@ -131,11 +138,11 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
+              const SizedBox(height: 16),
+              InputTourField(
                 controller: _cardNumberController,
+                labelText: 'Card Number',
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Card Number'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the card number';
@@ -143,11 +150,11 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              TextFormField(
+              const SizedBox(height: 16),
+              InputTourField(
                 controller: _totalAmountController,
+                labelText: 'Total Amount',
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Total Amount'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the total amount';
@@ -158,10 +165,28 @@ class _BookTourPageState extends State<BookTourScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _bookTour,
-                child: Text('Book Tour'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFF9900),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14.0,
+                    horizontal: 60.0,
+                  ),
+                ),
+                child: const Text(
+                  "Book Now",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 1.2,
+                  ),
+                ),
               ),
             ],
           ),

@@ -7,7 +7,8 @@ import 'package:book_tour_app/storage/secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class TourService {
-  static const String _baseUrl = 'http://localhost:8080/api/v1/auth';
+  static const String _baseUrl =
+      'https://backend-tour-booking-node-js-mongodb.onrender.com/api/v1/auth';
 
   static Future<Paginate<Tour>> getTour({
     required String cursor,

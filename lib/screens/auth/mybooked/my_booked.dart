@@ -12,7 +12,7 @@ class _BookedToursScreenState extends State<MyBooked> {
   @override
   void initState() {
     super.initState();
-    _bookedTours = AuthService().myBooked();
+    _bookedTours = AuthService().MyBookedTour();
   }
 
   @override

@@ -1,17 +1,26 @@
 import 'package:book_tour_app/routers/router_app.dart';
+import 'package:book_tour_app/storage/secure_storage.dart';
 import 'package:cloudinary_flutter/cloudinary_context.dart';
 import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Required for async calls in main
   CloudinaryContext.cloudinary =
       Cloudinary.fromCloudName(cloudName: 'dybpeirtu');
   CloudinaryContext.cloudinary.config.urlConfig.secure = true;
-  runApp(const MyApp());
+
+  // Check token availability before running the app
+  final token = await SecureStorage().retrieveToken();
+
+  runApp(MyApp(token: token));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? token;
+
+  const MyApp({Key? key, required this.token}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +29,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Ubuntu',
       ),
-      initialRoute: RouterApp.onBoardingScreenRoute,
+      initialRoute: token != null && token!.isNotEmpty
+          ? RouterApp.onBoardingScreenRoute
+          : RouterApp.loginRoute,
       routes: RouterApp.routes,
     );
   }

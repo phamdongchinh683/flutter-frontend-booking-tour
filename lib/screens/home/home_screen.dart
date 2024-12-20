@@ -1,10 +1,12 @@
 import 'package:book_tour_app/models/tour_model.dart';
 import 'package:book_tour_app/screens/tour/tour_app.dart';
+import 'package:book_tour_app/screens/widgets/button_paginate.dart';
 import 'package:book_tour_app/services/tour_service.dart';
+import 'package:cloudinary_flutter/image/cld_image.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -14,44 +16,31 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
   List<Tour> tours = [];
-  String? nextCursor = '';
-  String? prevCursor = '';
+  String? nextCursor;
+  String? prevCursor;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
-    _fetchTours(cursor: nextCursor);
+    _fetchTours(cursor: nextCursor, direction: 'next');
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 100) {
-      if (nextCursor != null) {
-        _fetchTours(cursor: nextCursor); 
-      }
-    }
-  }
-
-  Future<void> _fetchTours({String? cursor}) async {
+  Future<void> _fetchTours({String? cursor, required String direction}) async {
     if (_isLoading) return;
+
     setState(() {
       _isLoading = true;
     });
 
     try {
-      final response = await TourService.getTour(
-        cursor: cursor ?? '',
-        direction: 'next',
-      );
+      final response =
+          await TourService.getTour(cursor: cursor ?? '', direction: direction);
       setState(() {
-        tours.addAll(response.datas);
+        if (direction == 'next') {
+          tours = response.datas;
+        } else if (direction == 'prev') {
+          tours = response.datas;
+        }
         nextCursor = response.nextCursor;
         prevCursor = response.prevCursor;
         _isLoading = false;
@@ -60,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = false;
       });
-      print('Error fetching tours: $e');
     }
   }
 
@@ -73,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              Navigator.pushNamed(context, '/signup');
+              Navigator.pushNamed(context, '/profile');
             },
           ),
         ],
@@ -83,34 +71,78 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
-              itemCount: tours.length + 1,
+              itemCount: tours.length,
               itemBuilder: (context, index) {
-                if (index == tours.length) {
-                  return _isLoading
-                      ? const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : const SizedBox.shrink();
-                }
-
                 final tour = tours[index];
-                final publicId = tour.images[0]!;
-                return ListTile(
-                  title: Text(tour.city),
-                  subtitle: Text(tour.attractions),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TourApp(id: tour.id),
-                      ),
-                    );
-                  },
+                final imageExists = tour.images.isNotEmpty;
+
+                return Card(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  child: ListTile(
+                    leading: imageExists
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CldImageWidget(
+                              publicId: tour.images[0],
+                              width: 80,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : const Icon(Icons.image_not_supported,
+                            size: 40, color: Colors.grey),
+                    title: Text(
+                      tour.city,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFF9900)),
+                    ),
+                    subtitle: Text(
+                      "Attractions: ${tour.attractions}\nDuration: ${tour.days} days",
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TourApp(id: tour.id),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ButtonPaginate(
+                  buttonText: "Prev",
+                  onPressed: prevCursor != null && !_isLoading
+                      ? () {
+                          _fetchTours(cursor: prevCursor, direction: 'prev');
+                        }
+                      : null,
+                ),
+                ButtonPaginate(
+                  buttonText: "Next",
+                  onPressed: nextCursor != null && !_isLoading
+                      ? () {
+                          _fetchTours(cursor: nextCursor, direction: 'next');
+                        }
+                      : null,
+                )
+              ],
+            ),
+          ),
+          if (_isLoading)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ),
         ],
       ),
     );
