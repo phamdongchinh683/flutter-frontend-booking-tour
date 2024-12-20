@@ -65,12 +65,11 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> newPassword(String password, String otp) async {
-    final Uri loginUrl = Uri.parse('$_baseUrl/new-password');
+    final Uri loginUrl = Uri.parse('$_baseUrl/my-book-tour');
 
-    final response = await http.post(
+    final response = await http.get(
       loginUrl,
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'password': password, 'otp': otp}),
     );
 
     try {
@@ -82,6 +81,27 @@ class AuthService {
       }
     } catch (e) {
       return {'message': 'An error occurred: ${e.toString()}'};
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> myBooked() async {
+    final Uri url = Uri.parse('$_baseUrl/my-book-tour');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        return List<Map<String, dynamic>>.from(data['data']);
+      } else {
+        final errorBody = json.decode(response.body);
+        throw Exception(errorBody['message'] ?? 'Unknown error');
+      }
+    } catch (e) {
+      throw Exception('An error occurred: ${e.toString()}');
     }
   }
 }

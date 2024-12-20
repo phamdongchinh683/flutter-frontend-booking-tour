@@ -25,7 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           Positioned.fill(
             child: CldImageWidget(
-              publicId: 'tourImages/x3jhih9qlwehc6iytnqc',
+              publicId: 'tourImages/kcv6bjdq4p2gqw2zjh1i',
             ),
           ),
           Center(
@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 0),
+                  const SizedBox(height: 0),
                   const BrandingText(),
                   Container(
                     padding: const EdgeInsets.only(top: 0.0),

@@ -1,3 +1,4 @@
+import 'package:book_tour_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -7,24 +8,41 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
+final List<Widget> pages = [
+  HomeScreen(),
+];
+
 class _DashboardPageState extends State<DashboardPage> {
+  var currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Welcome to the Dashboard!',
-              style: TextStyle(fontSize: 20),
+        body: pages[currentPageIndex],
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          indicatorColor: Colors.amber,
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.home_filled),
+              icon: Icon(Icons.home_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.bookmark),
+              icon: Icon(Icons.bookmark),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.notifications_sharp),
+              icon: Icon(Icons.notifications_sharp),
+              label: '',
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
