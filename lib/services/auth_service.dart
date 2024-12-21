@@ -68,11 +68,12 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> newPassword(String password, String otp) async {
-    final Uri loginUrl = Uri.parse('$_baseUrl/my-book-tour');
+    final Uri newPasswordApi = Uri.parse('$_baseUrl/new-password');
 
-    final response = await http.get(
-      loginUrl,
+    final response = await http.post(
+      newPasswordApi,
       headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'otp': otp, 'password': password}),
     );
 
     try {
