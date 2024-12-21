@@ -78,10 +78,10 @@ class _AuthSignupState extends State<AuthSignup> {
           _phoneError = '';
           _ageError = '';
           _cityError = '';
-
           List<String> errors = signup['message'].split(', ');
           for (var error in errors) {
-            if (error.contains('Username')) {
+            if (error.contains('Username') ||
+                signup['message'].contains('username existed')) {
               _usernameError = error.trim();
             }
             if (error.contains('Password')) {
@@ -95,9 +95,15 @@ class _AuthSignupState extends State<AuthSignup> {
             }
             if (error.contains('Email')) {
               _emailError = error.trim();
+            } else if (signup['message'].contains('contact.email existed')) {
+              var errorEmail = signup['message'].toString();
+              _emailError = errorEmail.split(".")[1];
             }
             if (error.contains('Phone number')) {
               _phoneError = error.trim();
+            } else if (signup['message'].contains('contact.phone existed')) {
+              var errorPhone = signup['message'].toString();
+              _phoneError = errorPhone.split(".")[1];
             }
             if (error.contains('Age')) {
               _ageError = error.trim();

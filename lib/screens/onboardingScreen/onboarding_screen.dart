@@ -22,9 +22,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: SvgPicture.asset(
-              "assets/images/auth.svg",
-              fit: BoxFit.cover,
+            child: CldImageWidget(
+              publicId: 'tourImages/kcv6bjdq4p2gqw2zjh1i',
             ),
           ),
           Center(
@@ -33,6 +32,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 0),
+                  const BrandingText(),
                   const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
