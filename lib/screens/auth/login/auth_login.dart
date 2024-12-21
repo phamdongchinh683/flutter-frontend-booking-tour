@@ -20,7 +20,7 @@ class _AuthLoginState extends State<AuthLogin> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isLoading = false;
-  String errorMessage = '';
+  String errorMessage = ''; // Lưu thông báo lỗi
   final AuthService _authService = AuthService();
 
   Future<void> _login() async {
@@ -29,14 +29,14 @@ class _AuthLoginState extends State<AuthLogin> {
 
     if (username.isEmpty || password.isEmpty) {
       setState(() {
-        errorMessage = 'Please fill in all fields.';
+        errorMessage = 'Please fill in all fields.';  
       });
       return;
     }
 
     setState(() {
       isLoading = true;
-      errorMessage = '';
+      errorMessage = '';  
     });
 
     try {
@@ -64,7 +64,7 @@ class _AuthLoginState extends State<AuthLogin> {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -82,7 +82,7 @@ class _AuthLoginState extends State<AuthLogin> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Center(
@@ -104,32 +104,28 @@ class _AuthLoginState extends State<AuthLogin> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 18),
+                isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : SizedBox(
+                        child: ElevatedButtonAuth(
+                          onPressed: _login,
+                          buttonText: 'LOG IN',
+                        ),
+                      ),
+                if (errorMessage.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                const SizedBox(height: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : SizedBox(
-                            child: ElevatedButtonAuth(
-                              onPressed: _login,
-                              buttonText: 'LOG IN',
-                            ),
-                          ),
-                    if (errorMessage.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          errorMessage,
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                      ),
-                    const SizedBox(height: 13),
-                    const Divider(
-                      color: Color(0xFFFF9900),
-                      indent: 50.0,
-                      endIndent: 50.0,
-                    ),
+                    const Divider(color: Color(0xFFFF9900)),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/forgot-password');
@@ -164,3 +160,6 @@ class _AuthLoginState extends State<AuthLogin> {
     );
   }
 }
+
+ 
+

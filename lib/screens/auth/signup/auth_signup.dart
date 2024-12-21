@@ -1,14 +1,9 @@
-import 'dart:async';
-
 import 'package:book_tour_app/models/user_model.dart';
-import 'package:book_tour_app/screens/auth/widgets/auth_alert.dart';
 import 'package:book_tour_app/screens/auth/widgets/branding_text.dart';
 import 'package:book_tour_app/screens/auth/widgets/elevated_button_auth.dart';
-import 'package:book_tour_app/screens/auth/widgets/error_text.dart';
 import 'package:book_tour_app/screens/auth/widgets/field_input.dart';
 import 'package:book_tour_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AuthSignup extends StatefulWidget {
   const AuthSignup({super.key});
@@ -71,13 +66,7 @@ class _AuthSignupState extends State<AuthSignup> {
     try {
       final signup = await AuthService.signup(user);
       if (signup['status'] == 'success') {
-        const AuthAlert(
-          title: "Notification",
-          description: "Signup successful",
-          type: AlertType.success,
-        ).show(context);
-        final _timer = Timer(const Duration(seconds: 2),
-            () => Navigator.pushNamed(context, '/login'));
+        Navigator.pushReplacementNamed(context, '/login');
       } else {
         setState(() {
           _isLoading = false;
@@ -130,14 +119,10 @@ class _AuthSignupState extends State<AuthSignup> {
         _isLoading = false;
         _errorMessage = 'An error occurred: ${e.toString()}';
       });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
     }
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -153,12 +138,10 @@ class _AuthSignupState extends State<AuthSignup> {
           const BrandingText(),
           const SizedBox(height: 60),
           SizedBox(
-            width: 260,
-            height: 300,
+            height: 286,
             child: SingleChildScrollView(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +164,14 @@ class _AuthSignupState extends State<AuthSignup> {
                       hintText: 'Your first name',
                     ),
                     if (_firstNameError != null)
-                      ErrorText(errorText: _firstNameError!),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _firstNameError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "Last Name",
@@ -189,7 +179,14 @@ class _AuthSignupState extends State<AuthSignup> {
                       hintText: 'Your last name',
                     ),
                     if (_lastNameError != null)
-                      ErrorText(errorText: _lastNameError!),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _lastNameError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "Username",
@@ -197,35 +194,74 @@ class _AuthSignupState extends State<AuthSignup> {
                       hintText: 'Your username',
                     ),
                     if (_usernameError != null)
-                      ErrorText(errorText: _usernameError!),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _usernameError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "Email",
                       controller: _emailController,
                       hintText: 'Your mail',
                     ),
-                    if (_emailError != null) ErrorText(errorText: _emailError!),
+                    if (_emailError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _emailError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "Phone Number",
                       controller: _phoneController,
                       hintText: 'Your phone number',
                     ),
-                    if (_phoneError != null) ErrorText(errorText: _phoneError!),
+                    if (_phoneError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _phoneError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "Age",
                       controller: _ageController,
                       hintText: 'Your age',
                     ),
-                    if (_ageError != null) ErrorText(errorText: _ageError!),
+                    if (_ageError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _ageError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "City",
                       controller: _cityController,
                       hintText: 'Your city',
                     ),
-                    if (_cityError != null) ErrorText(errorText: _cityError!),
+                    if (_cityError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _cityError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                     const SizedBox(height: 16),
                     FieldInput(
                       nameField: "Password",
@@ -234,13 +270,20 @@ class _AuthSignupState extends State<AuthSignup> {
                       obscureText: true,
                     ),
                     if (_passwordError != null)
-                      ErrorText(errorText: _passwordError!),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          _passwordError!,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
                   ],
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
           _isLoading
               ? const CircularProgressIndicator()
               : ElevatedButtonAuth(
@@ -249,7 +292,7 @@ class _AuthSignupState extends State<AuthSignup> {
                 ),
           if (_errorMessage.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 0),
               child: Text(
                 _errorMessage,
                 style: const TextStyle(

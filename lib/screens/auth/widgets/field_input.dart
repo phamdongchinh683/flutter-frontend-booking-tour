@@ -25,6 +25,7 @@ class FieldInput extends StatelessWidget {
   Widget build(BuildContext context) {
     if (dropdownItems != null) {
       return SizedBox(
+       width: double.infinity,
         child: DropdownButtonFormField<String>(
           value: selectedValue,
           onChanged: onChanged,
@@ -36,7 +37,7 @@ class FieldInput extends StatelessWidget {
           }).toList(),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Color(0xFFB6B6B6)),
+            hintStyle: const TextStyle(color: Color.fromARGB(255, 56, 241, 49)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             border: OutlineInputBorder(
@@ -51,28 +52,23 @@ class FieldInput extends StatelessWidget {
                 color: Color(0xFFFF9900),
               ),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: const BorderSide(
-                color: Color(0xFFFF9900),
-              ),
-            ),
-            fillColor: Colors.transparent,
+            fillColor: Colors.white,
             filled: true,
           ),
         ),
       );
     } else {
       return SizedBox(
+        width: double.infinity,
         child: TextField(
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
             labelText: nameField,
             hintText: hintText,
-            hintStyle: const TextStyle(color: Color(0xFFB6B6B6)),
+            hintStyle: const TextStyle(color: Color.fromARGB(255, 56, 241, 49)),
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 42.0),
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
               borderSide: const BorderSide(
@@ -85,13 +81,7 @@ class FieldInput extends StatelessWidget {
                 color: Color(0xFFFF9900),
               ),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: const BorderSide(
-                color: Color(0xFFFF9900),
-              ),
-            ),
-            fillColor: Colors.transparent,
+            fillColor: Colors.white,
             filled: true,
           ),
         ),

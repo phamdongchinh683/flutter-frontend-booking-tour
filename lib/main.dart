@@ -5,12 +5,11 @@ import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Required for async calls in main
+  WidgetsFlutterBinding.ensureInitialized(); 
   CloudinaryContext.cloudinary =
       Cloudinary.fromCloudName(cloudName: 'dybpeirtu');
   CloudinaryContext.cloudinary.config.urlConfig.secure = true;
 
-  // Check token availability before running the app
   final token = await SecureStorage().retrieveToken();
 
   runApp(MyApp(token: token));
@@ -21,13 +20,20 @@ class MyApp extends StatelessWidget {
 
   const MyApp({Key? key, required this.token}) : super(key: key);
 
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tour Booking App',
       theme: ThemeData(
-        fontFamily: 'Ubuntu',
+        primarySwatch: Colors.blue,
       ),
       initialRoute: token != null && token!.isNotEmpty
           ? RouterApp.onBoardingScreenRoute
