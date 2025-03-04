@@ -12,7 +12,7 @@ class _BookedToursScreenState extends State<MyBooked> {
   @override
   void initState() {
     super.initState();
-    _bookedTours = AuthService().MyBookedTour();
+    _bookedTours = AuthService().myBookedTour();
   }
 
   @override
@@ -27,7 +27,9 @@ class _BookedToursScreenState extends State<MyBooked> {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+                child: Text(
+                    '${snapshot.error.toString().substring(26).toString().substring(15)}'));
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {

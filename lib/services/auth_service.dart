@@ -88,7 +88,7 @@ class AuthService {
     }
   }
 
-  Future<List<Map<String, dynamic>>> MyBookedTour() async {
+  Future<List<Map<String, dynamic>>> myBookedTour() async {
     final Uri url = Uri.parse('$_baseUrl/my-book-tour');
 
     try {
@@ -113,17 +113,17 @@ class AuthService {
     }
   }
 
-  Future<List<Map<String, dynamic>>> GetGuideList() async {
-    final Uri url = Uri.parse('$_baseUrl/my-book-tour');
+  Future<List<Map<String, dynamic>>> getGuideList() async {
+    final Uri url = Uri.parse('$_baseUrl/get-guides');
 
     try {
       final token = await SecureStorage().retrieveToken();
       if (token == null || token.isEmpty) {
-        throw Exception('Token is null or empty');
+        throw Exception('Token is missing. Please log in.');
       }
       final response = await http.get(
         url,
-        headers: {'token': token},
+        headers: {'token': '$token'},
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -131,10 +131,10 @@ class AuthService {
         return List<Map<String, dynamic>>.from(data['data']);
       } else {
         final errorBody = json.decode(response.body);
-        throw Exception(errorBody['message'] ?? 'Unknown error');
+        throw Exception(errorBody['message'] ?? 'Unexpected server error.');
       }
     } catch (e) {
-      throw Exception('An error occurred: ${e.toString()}');
+      throw Exception('Failed to fetch guides: ${e.toString()}');
     }
   }
 
@@ -157,7 +157,6 @@ class AuthService {
         throw Exception('Failed to fetch user profile');
       }
     } catch (e) {
-      print('Error fetching user profile: $e');
       throw Exception('Error: $e');
     }
   }

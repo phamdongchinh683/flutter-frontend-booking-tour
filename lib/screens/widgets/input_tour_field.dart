@@ -5,12 +5,14 @@ class InputTourField extends StatelessWidget {
   final String labelText;
   final String? Function(String?)? validator;
   final TextInputType keyboardType;
+  final bool readOnly;
 
-  const InputTourField({
+  InputTourField({
     Key? key,
     required this.controller,
     required this.labelText,
     this.validator,
+    this.readOnly = false,
     this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
@@ -19,11 +21,12 @@ class InputTourField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      readOnly: readOnly,
       decoration: InputDecoration(
         labelText: labelText,
         border: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xFFFF9900), // Orange border color
+            color: Color(0xFFFF9900),
           ),
         ),
         focusedBorder: const OutlineInputBorder(

@@ -11,7 +11,7 @@ import 'package:book_tour_app/screens/tour/tour_app.dart';
 import 'package:flutter/material.dart';
 
 class RouterApp {
-  static const String onBoardingScreenRoute = '/page';
+  static const String onBoardingScreenRoute = '/';
   static const String loginRoute = '/login';
   static const String forgotPasswordRoute = '/forgot-password';
   static const String updateNewpasswordRoute = '/update-new-password';
@@ -37,9 +37,13 @@ class RouterApp {
       return TourApp(id: tourId);
     },
     bookTourRoute: (context) {
-      final String tourId =
-          ModalRoute.of(context)?.settings.arguments as String;
-      return BookTourScreen(tourId: tourId);
+      final args =
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+      final String tourId = args['tourId'] as String;
+      final int totalPrice = args['totalPrice'] as int;
+      final int totalPeople = args['totalPeople'] as int;
+      return BookTourScreen(
+          tourId: tourId, totalPrice: totalPrice, totalPeople: totalPeople);
     },
   };
 }

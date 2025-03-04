@@ -11,8 +11,6 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final assetName = 'assets/images/onboarding_screen.svg';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -17,6 +17,9 @@ class _TourDetailScreenState extends State<TourApp> {
   bool _isLoading = true;
   TourDetailInfo? tour;
 
+  int _numAdults = 0;
+  int _numChildren = 0;
+
   @override
   void initState() {
     super.initState();
@@ -34,8 +37,15 @@ class _TourDetailScreenState extends State<TourApp> {
       setState(() {
         _isLoading = false;
       });
-      print('Error fetching tour details: $e');
+      print(e);
     }
+  }
+
+  int _calculateTotalPrice() {
+    if (tour == null) return 0;
+    int adultPrice = tour!.prices.adult;
+    int childPrice = tour!.prices.child;
+    return (_numAdults * adultPrice) + (_numChildren * childPrice);
   }
 
   @override
@@ -134,13 +144,111 @@ class _TourDetailScreenState extends State<TourApp> {
                           ),
                         ),
                         const SizedBox(height: 20),
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Select Number of Visitors:',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFFF9900)),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Adults:',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.remove),
+                                      onPressed: _numAdults > 1
+                                          ? () {
+                                              setState(() {
+                                                _numAdults--;
+                                              });
+                                            }
+                                          : null,
+                                    ),
+                                    Text(
+                                      '$_numAdults',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.add),
+                                      onPressed: () {
+                                        setState(() {
+                                          _numAdults++;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Children:',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.remove),
+                                      onPressed: _numChildren > 0
+                                          ? () {
+                                              setState(() {
+                                                _numChildren--;
+                                              });
+                                            }
+                                          : null,
+                                    ),
+                                    Text(
+                                      '$_numChildren',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.add),
+                                      onPressed: () {
+                                        setState(() {
+                                          _numChildren++;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+
+                        Text(
+                          'Total Price: \$${_calculateTotalPrice().toStringAsFixed(2)}',
+                          style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red),
+                        ),
+
+                        const SizedBox(height: 20),
+
                         ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      BookTourScreen(tourId: widget.id),
+                                  builder: (context) => BookTourScreen(
+                                      tourId: widget.id,
+                                      totalPrice: _calculateTotalPrice(),
+                                      totalPeople: (_numAdults + _numChildren)),
                                 ));
                           },
                           style: ElevatedButton.styleFrom(
@@ -155,47 +263,8 @@ class _TourDetailScreenState extends State<TourApp> {
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
+
                         const SizedBox(height: 30),
-                        const Text(
-                          'Tour Highlights:',
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFF9900)),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          '• Explore famous attractions like ${tour!.attractions}.\n• Enjoy local cuisine and culture.\n• Visit the most beautiful landmarks in ${tour!.city}.',
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.black),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Tour Dates:',
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFF9900)),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Available Dates: January 2024, February 2024, March 2024',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Customer Reviews:',
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFF9900)),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          '★★★★☆ - "Amazing experience! The tour was well-organized and the guide was very informative."',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                        ),
-                        const SizedBox(height: 20),
                       ],
                     ),
             ),
