@@ -43,7 +43,6 @@ class _BookedToursScreenState extends State<MyBooked> {
             itemBuilder: (context, index) {
               final tour = bookedTours[index];
               final tourId = tour['_id'];
-              final guideId = tour['guide_id'];
               final numberOfVisitors = tour['number_visitors'];
               final startTour = DateTime.parse(tour['start_tour']);
               final startTime = tour['time']['start_time'];
@@ -52,12 +51,10 @@ class _BookedToursScreenState extends State<MyBooked> {
                   tour['tour_id'] != null ? tour['tour_id']['city'] : 'N/A';
 
               return ListTile(
-                title: Text('Tour ID: $tourId'),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('City: $city'),
-                    Text('Guide ID: ${guideId ?? 'Not Assigned'}'),
                     Text('Number of Visitors: $numberOfVisitors'),
                     Text('Start Tour: ${startTour.toLocal()}'),
                     Text('Start Time: $startTime'),
