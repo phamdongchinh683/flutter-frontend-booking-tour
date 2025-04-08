@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 class RouterApp {
   static const String onBoardingScreenRoute = '/';
   static const String loginRoute = '/login';
-  static const String forgotPasswordRoute = '/forgot-password';
   static const String updateNewpasswordRoute = '/update-new-password';
   static const String signupRoute = '/signup';
   static const String dashboardRoute = '/dashboard';
@@ -26,7 +25,6 @@ class RouterApp {
     onBoardingScreenRoute: (context) => const OnboardingScreen(),
     loginRoute: (context) => const AuthLogin(),
     signupRoute: (context) => const AuthSignup(),
-    forgotPasswordRoute: (context) => const AuthForgotPassword(),
     updateNewpasswordRoute: (context) => const AuthUpdatePassword(),
     dashboardRoute: (context) => const DashboardPage(),
     myProfileRoute: (context) => const AuthProfileScreen(),

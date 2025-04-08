@@ -132,18 +132,6 @@ class _AuthLoginState extends State<AuthLogin> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/forgot-password');
-                      },
-                      child: const Text(
-                        'Forgot your password?',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Color(0xFFB6B6B6),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
                         Navigator.pushNamed(context, '/signup');
                       },
                       child: const Text(
